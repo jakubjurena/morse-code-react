@@ -9,12 +9,12 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 20s ease-in-out;
   }
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #454f57; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,15 +24,36 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+@keyframes App-logo-spin {
+  0% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(-5deg);
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cards {
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.card-input {
+  flex-grow: 1;
+  height: 200px;
+};
+
+.card-output {
+  flex-grow: 1;
+  height: 200px;
+};
+
+.Settings {
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
 }
