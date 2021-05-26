@@ -25,6 +25,8 @@ function App() {
   const [decoded, setDecoded] = useState<Original>(defaultText);
   const [encoded, setEncoded] = useState<Encoded>(encode(defaultText));
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [previousInterval, setPreviousInterval] = useState<any>(undefined);
 
   const onDecodedChange: ChangeEventHandler<HTMLTextAreaElement> = (target) => {
     setDecoded(target.currentTarget.value);
@@ -42,7 +44,17 @@ function App() {
   }
 
   const onPlay = () => {
-    playSound(encoded.join(" "));
+    // setStopPrevious(playSound(encoded.join(" ")));
+    const duration = playSound(encoded.join(" "));
+    console.log(duration);
+    console.log((duration + 0.2) * 1000);
+    setIsPlaying(true);
+    if (previousInterval) {
+      clearTimeout(previousInterval);
+    }
+    setPreviousInterval(setTimeout(() => {
+      setIsPlaying(false)
+    }, (duration + 0.2) * 1000 ));
   }
 
   return (
@@ -56,7 +68,7 @@ function App() {
           <div style={controlButtons}>
             <Button onClick={onEncode}>Encode {">"}</Button>
             <Button disabled={true}>{"<"} Decode</Button>
-            <Button disabled={encoded.length === 0} onClick={onPlay}>🔊 Play</Button>
+            <Button disabled={encoded.length === 0 || isPlaying} onClick={onPlay}>🔊 Play</Button>
           </div>
           <div style={inputCard}>
             <TextArea value={encoded.join(" ")} autoSize={{ minRows: 3, maxRows: 5 }} disabled={true} />
